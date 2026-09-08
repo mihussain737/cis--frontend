@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Zap,
   Home,
@@ -19,6 +19,20 @@ import {
 
 const Navbar = () => {
   const token = localStorage.getItem("token");
+  const navigate=useNavigate();
+
+  const [isLoggedIn,setIsLoggedIn]=useState(!!localStorage.getItem("token"));
+
+  const handleLogout=()=>{
+    localStorage.clear();
+    setIsLoggedIn(false);
+    navigate('/login'); 
+  }
+
+  useEffect(()=>{
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  },[]);
 
   const publicNavItems = [
     {
@@ -141,7 +155,7 @@ const Navbar = () => {
             {token && (
               <button
                 className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition"
-              >
+              onClick={handleLogout}>
                 <LogOut size={17} />
                 <span>Logout</span>
               </button>

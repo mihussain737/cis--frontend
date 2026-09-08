@@ -9,6 +9,7 @@ import DashBoard from "./components/DashBoard";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
         </Route>
 
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 };
