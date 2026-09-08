@@ -1,20 +1,28 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import DashBoard from "./components/DashBoard";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import Footer from "./components/Footer";
+import ConnectionNavbar from "./components/ConnectionNavbar";
 
-const App = () => {
+const AppContent = () => {
+
+  const location = useLocation();
+
+  const isConnectionPage =
+    location.pathname.startsWith("/connection");
+
   return (
-    <BrowserRouter>
-      <Navbar />
+    <>
+      {/* <Navbar /> */}
+
+      {isConnectionPage ? <ConnectionNavbar /> : <Navbar />}
 
       <Routes>
 
@@ -29,11 +37,21 @@ const App = () => {
 
         {/* Only for logged-in users */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/dashboard" />
         </Route>
 
       </Routes>
-      <Footer/>
+
+      <Footer />
+    </>
+  );
+};
+
+const App = () => {
+
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 };

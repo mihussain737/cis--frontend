@@ -64,11 +64,6 @@ const Navbar = () => {
 
   const privateNavItems = [
     {
-      name: "Dashboard",
-      path: "/dashboard",
-      icon: LayoutDashboard,
-    },
-    {
       name: "Connection",
       path: "/connection",
       icon: Cable,
