@@ -20,7 +20,6 @@ export const registerUser = (userData) => async (dispatch) => {
       data: response.data,
     };
   } catch (error) {
-    console.log("Register Error:", error.response);
 
     dispatch({
       type: "POST_REGISTER_FAILURE",
@@ -31,14 +30,11 @@ export const registerUser = (userData) => async (dispatch) => {
 
 
 export const loginUser=(loginData)=>async (dispatch)=>{
-  console.log(loginData);
   
   dispatch({type:"LOGIN_REQUEST"})
 
   try {
-    console.log(authApi.defaults.baseURL)
     const response=await authApi.post("/login",loginData);
-    console.log("LOGIN API RESPONSE:", response.data);
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: response.data,
@@ -49,7 +45,6 @@ export const loginUser=(loginData)=>async (dispatch)=>{
       data: response.data,
     };
   } catch (error) {
-    console.log("Register Error:", error.response);
     dispatch({
       type: "LOGIN_FAILURE",
       payload: error.response?.data?.message || "Login failed",

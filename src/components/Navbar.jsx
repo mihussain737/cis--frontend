@@ -29,6 +29,13 @@ const Navbar = () => {
     navigate('/login'); 
   }
 
+  // 15 min logout
+  setTimeout(() => {
+  localStorage.clear();
+    setIsLoggedIn(false);
+    navigate('/login');
+}, 900000);
+
   useEffect(()=>{
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);

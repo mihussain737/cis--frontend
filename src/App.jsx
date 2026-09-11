@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import Footer from "./components/Footer";
 import ConnectionNavbar from "./components/ConnectionNavbar";
+import LtApplication from "./connection/LtApplication";
 
 const AppContent = () => {
 
@@ -38,6 +39,8 @@ const AppContent = () => {
         {/* Only for logged-in users */}
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" />
+          <Route path="/connection/new" element={LtApplication} />
+          <Route path="/connection/new/lt" element={<LtApplication/>}/>
         </Route>
 
       </Routes>

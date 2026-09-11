@@ -20,9 +20,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit =async (data) => {
-    console.log(data);
     const result =await dispatch(loginUser(data));
-    console.log("result log ",result);
     
     if (result.success) {
       toast.success("Logged In successfully!");
