@@ -221,10 +221,9 @@ const Signup = () => {
                   },
 
                   pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).+$/,
+                     value: /^[a-zA-Z0-9_]+$/,
                     message:
-                      "Password must contain uppercase, lowercase, number and special character",
+                      "Password must contain character and digit"
                   },
                 })}
                 className={`w-full px-4 py-2.5 pr-12 rounded-lg border outline-none transition
