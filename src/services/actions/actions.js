@@ -1,4 +1,4 @@
-import { authApi } from "../api";
+import { authApi, nscApi } from "../api";
 
 export const registerUser = (userData) => async (dispatch) => {
   dispatch({
@@ -47,6 +47,29 @@ export const loginUser=(loginData)=>async (dispatch)=>{
   } catch (error) {
     dispatch({
       type: "LOGIN_FAILURE",
+      payload: error.response?.data?.message || "Login failed",
+    });
+  }
+}
+
+// nsc releated actions
+export const connectionPost=(connectionData)=>async(dispatch)=>{
+  debugger
+  dispatch({type:"CONNECTION_REQUEST"})
+  try {
+    const response=await nscApi.post("",connectionData);
+    dispatch({
+      type: "CONNECTION_SUCCESS",
+      payload: response.data,
+    });
+
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    dispatch({
+      type: "CONNECTION_FAILURE",
       payload: error.response?.data?.message || "Login failed",
     });
   }
