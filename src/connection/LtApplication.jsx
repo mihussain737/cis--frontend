@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { connectionPost } from "../services/actions/actions";
-import {useDispatch, useSelector} from 'react-redux'
-import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch, useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 
 const LTConnection = () => {
   const {
@@ -11,14 +11,21 @@ const LTConnection = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.connection);
 
-  const districts=['Ranchi','Sahebganj','Saraikela Kharsawan',"Simdega","West Singhbhum"];
+  const districts = [
+    "Ranchi",
+    "Sahebganj",
+    "Saraikela Kharsawan",
+    "Simdega",
+    "West Singhbhum",
+  ];
 
-  const onSubmit = async(connectionData) => {
+  const onSubmit = async (connectionData) => {
+    console.log(connectionData);
     const response=await dispatch(connectionPost(connectionData));
-    console.log(response);
+    // console.log(response);
     if(response.success){
       toast.success("Connection submited successfully!")
       reset();
@@ -29,9 +36,7 @@ const LTConnection = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="mx-auto max-w-5xl rounded-xl bg-white p-6 shadow">
-        <h1 className="mb-2 text-2xl font-bold">
-          Apply for New LT Connection
-        </h1>
+        <h1 className="mb-2 text-2xl font-bold">Apply for New LT Connection</h1>
 
         <p className="mb-6 text-gray-600">
           Submit an application for a new low-tension electricity connection.
@@ -39,9 +44,7 @@ const LTConnection = () => {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           <section>
-            <h2 className="mb-4 text-lg font-semibold">
-              Applicant Details
-            </h2>
+            <h2 className="mb-4 text-lg font-semibold">Applicant Details</h2>
 
             <div className="grid gap-4 md:grid-cols-2">
               <div>
@@ -94,9 +97,7 @@ const LTConnection = () => {
                 />
 
                 {errors.email && (
-                  <p className="text-sm text-red-500">
-                    {errors.email.message}
-                  </p>
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
 
@@ -125,9 +126,7 @@ const LTConnection = () => {
           </section>
 
           <section>
-            <h2 className="mb-4 text-lg font-semibold">
-              Address Details
-            </h2>
+            <h2 className="mb-4 text-lg font-semibold">Address Details</h2>
 
             <div className="grid gap-4 md:grid-cols-2">
               <div>
@@ -161,28 +160,47 @@ const LTConnection = () => {
               </div>
 
               <div>
-                <label>District</label>
+                {/* <label>District</label> */}
                 {/* <input
                   {...register("district", {
                     required: "District is required",
                   })}
                   className="w-full rounded border p-2"
                 /> */}
-                <select name="district" id="" className="w-full rounded border p-2">
-                  <option value="">Select District</option>
-                  {districts.map((district)=>(
-                    <option key={district} value={district}>{district}</option>
-                  ))}
-                </select>
+                <div>
+                  <label>District</label>
+
+                  <select
+                    {...register("district", {
+                      required: "District is required",
+                    })}
+                    className="w-full rounded border p-2"
+                    defaultValue=""
+                  >
+                    <option value="">Select District</option>
+
+                    {districts.map((district) => (
+                      <option key={district} value={district}>
+                        {district}
+                      </option>
+                    ))}
+                  </select>
+
+                  {errors.district && (
+                    <p className="text-sm text-red-500">
+                      {errors.district.message}
+                    </p>
+                  )}
+                </div>
               </div>
 
               <div>
                 <label>State</label>
                 <input
-                readOnly
+                  readOnly
                   {...register("state", {
                     required: "State is required",
-                    value:"Jharkhand"
+                    value: "Jharkhand",
                   })}
                   className="w-full rounded border p-2"
                 />
@@ -263,22 +281,21 @@ const LTConnection = () => {
               className="rounded bg-blue-600 px-6 py-2 font-semibold text-white hover:bg-blue-700"
             >
               {loading ? (
-              <div className="flex items-center justify-center gap-2">
-                <div
-                  className="w-5 h-5 border-2
+                <div className="flex items-center justify-center gap-2">
+                  <div
+                    className="w-5 h-5 border-2
                     border-blue-200
                     border-t-white
                     rounded-full
                     animate-spin"
-                />
-                Submit Application...
-              </div>
-            ) : (
-              "Submit Application"
-            )}
+                  />
+                  Submit Application...
+                </div>
+              ) : (
+                "Submit Application"
+              )}
             </button>
             <Toaster />
-            
           </div>
         </form>
       </div>

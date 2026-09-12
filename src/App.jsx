@@ -18,6 +18,7 @@ import ConnectionNavbar from "./components/ConnectionNavbar";
 import LtApplication from "./connection/LtApplication";
 import ConnectionHome from "./connection/ConnectionHome";
 import Dashboard from "./components/Dashboard";
+import ConnectionApproval from "./connection/ConnectionApproval";
 
 const AppContent = () => {
   const location = useLocation();
@@ -59,6 +60,11 @@ const AppContent = () => {
           <Route
             path="/connection/new/lt"
             element={<LtApplication />}
+          />
+
+          <Route
+            path="/connection/approval/new"
+            element={<ConnectionApproval />}
           />
         </Route>
       </Routes>

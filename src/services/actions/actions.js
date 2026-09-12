@@ -35,6 +35,7 @@ export const loginUser=(loginData)=>async (dispatch)=>{
 
   try {
     const response=await authApi.post("/login",loginData);
+    
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: response.data,
@@ -54,7 +55,6 @@ export const loginUser=(loginData)=>async (dispatch)=>{
 
 // nsc releated actions
 export const connectionPost=(connectionData)=>async(dispatch)=>{
-  debugger
   dispatch({type:"CONNECTION_REQUEST"})
   try {
     const response=await nscApi.post("",connectionData);
@@ -70,6 +70,29 @@ export const connectionPost=(connectionData)=>async(dispatch)=>{
   } catch (error) {
     dispatch({
       type: "CONNECTION_FAILURE",
+      payload: error.response?.data?.message || "Login failed",
+    });
+  }
+}
+
+
+// get all pending approval connections
+export const fetchPendingConnections=()=>async (dispatch)=>{
+  dispatch({type:"CONNECTION_PENDING_REQUEST"})
+  try {
+    const response=await nscApi.get();
+    dispatch({
+      type: "CONNECTION_PENDING_SUCCESS",
+      payload: response.data,
+    });
+
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    dispatch({
+      type: "CONNECTION_PENDING_FAILURE",
       payload: error.response?.data?.message || "Login failed",
     });
   }
