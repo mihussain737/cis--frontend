@@ -19,6 +19,7 @@ import LtApplication from "./connection/LtApplication";
 import ConnectionHome from "./connection/ConnectionHome";
 import Dashboard from "./components/Dashboard";
 import ConnectionApproval from "./connection/ConnectionApproval";
+import ApplicationStatus from "./connection/ApplicationStatus";
 
 const AppContent = () => {
   const location = useLocation();
@@ -65,6 +66,11 @@ const AppContent = () => {
           <Route
             path="/connection/approval/new"
             element={<ConnectionApproval />}
+          />
+          
+          <Route
+            path="/connection/applications/status"
+            element={<ApplicationStatus />}
           />
         </Route>
       </Routes>
