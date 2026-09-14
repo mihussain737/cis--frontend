@@ -1,4 +1,4 @@
-import { authApi, nscApi } from "../api";
+import { authApi, meteringApi, nscApi } from "../api";
 
 export const registerUser = (userData) => async (dispatch) => {
   dispatch({
@@ -227,3 +227,45 @@ export const rejectConnection = (customerId) => async (dispatch) => {
     };
   }
 };
+
+export const saveMeter=(meterData)=>async(dispatch)=>{
+  dispatch({
+    type: "METER_STOCK_REQUEST",
+  });
+
+  try {
+    const response = await meteringApi.post(`meterStock`,meterData);
+
+    dispatch({
+      type: "METER_STOCK_SUCCESS",
+      payload: {
+        data: response.data,
+      },
+    });
+
+    return {
+      success: true,
+      data: response.data,
+    };
+  } catch (error) {
+    console.error(
+      "Reject connection error:",
+      error.response || error
+    );
+
+    const errorMessage =
+      error.response?.data?.message ||
+      error.response?.data ||
+      "Failed to reject connection";
+
+    dispatch({
+      type: "METER_STOCK_FAILURE",
+      payload: errorMessage,
+    });
+
+    return {
+      success: false,
+      error: errorMessage,
+    };
+  }
+}
