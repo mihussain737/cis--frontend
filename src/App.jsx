@@ -17,6 +17,8 @@ import MeteringHome from "./metering/MeteringHome";
 import MeteringNavbar from "./components/MeteringNavbar";
 import MeterStock from "./metering/MeterStock";
 import AssignNewMeter from "./metering/AssignNewMeter";
+import MeterReading from "./metering/MeterReading";
+import MeterReadingScreen from "./metering/MeterReadingScreen";
 const AppContent = () => {
   const location = useLocation();
   const isConnectionPage = location.pathname.startsWith("/connection");
@@ -58,6 +60,8 @@ const AppContent = () => {
           <Route path="/metering" element={<MeteringHome />} />{" "}
           <Route path="/metering/meter/stock" element={<MeterStock />} />{" "}
           <Route path="/metering/meter/assgin-new" element={<AssignNewMeter />} />{" "}
+          <Route path="/metering/meter/reading" element={<MeterReading />} />{" "}
+          <Route path="/metering/meter/reading/readingScreen" element={<MeterReadingScreen />} />{" "}
         </Route>{" "}
       </Routes>{" "}
       <Footer />{" "}
