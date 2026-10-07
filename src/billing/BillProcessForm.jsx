@@ -1,24 +1,29 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { processBill } from "../services/actions/billingActions";
 
 const BillProcessForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const dispatch = useDispatch();
 
+  const onSubmit = async (data) => {
     const [year, month] = data.billMonthAndYear.split("-");
 
-    console.log("Account No:", data.accountNumber);
-    console.log("Month:", Number(month));
-    console.log("Year:", Number(year));
-
-    // API call will go here
+    const response = await dispatch(processBill(data));
+    if (response.success) {
+      toast.success("Bill Successfully Processed");
+      reset();
+    } else {
+      toast.error(response.error);
+    }
   };
 
   return (
@@ -26,25 +31,19 @@ const BillProcessForm = () => {
       <Toaster position="top-center" />
 
       <div className="mx-auto max-w-3xl rounded-xl bg-white p-6 shadow">
-
         <h1 className="mb-2 text-center text-2xl font-bold text-blue-800">
           Bill Process
         </h1>
 
-        <p className="mb-6 text-center text-gray-600">
-          Process your bill
-        </p>
+        <p className="mb-6 text-center text-gray-600">Process your bill</p>
 
         <section className="mb-6 rounded-lg border border-gray-200 p-4">
-
           <h2 className="mb-4 border-b pb-2 text-center text-lg font-bold text-gray-800">
             Account Details
           </h2>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-
             <div className="grid grid-cols-1 gap-4">
-
               {/* Account Number */}
               <div>
                 <label className="mb-1 block font-medium text-gray-700">
@@ -94,18 +93,14 @@ const BillProcessForm = () => {
 
               {/* Submit */}
               <div className="flex justify-end">
-
                 <button
                   type="submit"
                   className="rounded bg-blue-600 px-6 py-2 font-semibold text-white hover:bg-blue-700"
                 >
                   Bill Process
                 </button>
-
               </div>
-
             </div>
-
           </form>
         </section>
       </div>
