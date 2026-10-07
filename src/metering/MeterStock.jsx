@@ -60,9 +60,6 @@ const MeterStock = () => {
     recordStatus: 1,
   };
 
-  console.log("Meter Stock Data:", formattedMeterData);
-  console.log("JSON:", JSON.stringify(formattedMeterData));
-
   const response = await dispatch(saveMeter(formattedMeterData));
 
   if (response?.success) {

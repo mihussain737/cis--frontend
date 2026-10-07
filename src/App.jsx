@@ -16,14 +16,23 @@ import ApplicationStatus from "./connection/ApplicationStatus";
 import MeteringHome from "./metering/MeteringHome";
 import MeteringNavbar from "./components/MeteringNavbar";
 import MeterStock from "./metering/MeterStock";
+import AssignNewMeter from "./metering/AssignNewMeter";
+import MeterReading from "./metering/MeterReading";
+import MeterReadingScreen from "./metering/MeterReadingScreen";
+import BillingHome from "./billing/BillingHome";
+import BillingNavbar from "./billing/BillingNavbar";
+import BillProcessForm from "./billing/BillProcessForm";
 const AppContent = () => {
   const location = useLocation();
   const isConnectionPage = location.pathname.startsWith("/connection");
   const isMeteringPage = location.pathname.startsWith("/metering");
+  const isBillingPage = location.pathname.startsWith("/billing");
   return (
     <>
       {" "}
-      {isMeteringPage ? (
+      {isBillingPage ? (
+        <BillingNavbar />
+      ) : isMeteringPage ? (
         <MeteringNavbar />
       ) : isConnectionPage ? (
         <ConnectionNavbar />
@@ -33,6 +42,7 @@ const AppContent = () => {
       <Routes>
         {" "}
         {/* Public pages */} <Route path="/home" element={<Home />} />{" "}
+        {/* Public pages */} <Route path="/" element={<Home />} />{" "}
         {/* Only for users who are NOT logged in */}{" "}
         <Route element={<PublicRoute />}>
           {" "}
@@ -56,6 +66,17 @@ const AppContent = () => {
           />{" "}
           <Route path="/metering" element={<MeteringHome />} />{" "}
           <Route path="/metering/meter/stock" element={<MeterStock />} />{" "}
+          <Route
+            path="/metering/meter/assgin-new"
+            element={<AssignNewMeter />}
+          />{" "}
+          <Route path="/metering/meter/reading" element={<MeterReading />} />{" "}
+          <Route
+            path="/metering/meter/reading/readingScreen"
+            element={<MeterReadingScreen />}
+          />{" "}
+          <Route path="/billing" element={<BillingHome />} />{" "}
+          <Route path="/billing/billingProcess" element={<BillProcessForm />} />{" "}
         </Route>{" "}
       </Routes>{" "}
       <Footer />{" "}
