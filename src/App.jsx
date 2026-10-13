@@ -22,15 +22,21 @@ import MeterReadingScreen from "./metering/MeterReadingScreen";
 import BillingHome from "./billing/BillingHome";
 import BillingNavbar from "./billing/BillingNavbar";
 import BillProcessForm from "./billing/BillProcessForm";
+import PaymentHome from "./payments/PaymentHome";
+import PaymentNavbar from "./payments/PaymentNavbar";
+import BillPayment from "./payments/BillPayment";
 const AppContent = () => {
   const location = useLocation();
   const isConnectionPage = location.pathname.startsWith("/connection");
   const isMeteringPage = location.pathname.startsWith("/metering");
   const isBillingPage = location.pathname.startsWith("/billing");
+  const isPaymentPage = location.pathname.startsWith("/payments");
   return (
     <>
       {" "}
-      {isBillingPage ? (
+      {isPaymentPage ? (
+        <PaymentNavbar />
+      ) : isBillingPage ? (
         <BillingNavbar />
       ) : isMeteringPage ? (
         <MeteringNavbar />
@@ -77,6 +83,8 @@ const AppContent = () => {
           />{" "}
           <Route path="/billing" element={<BillingHome />} />{" "}
           <Route path="/billing/billingProcess" element={<BillProcessForm />} />{" "}
+          <Route path="/payments" element={<PaymentHome />} />{" "}
+          <Route path="/payments/billPayment" element={<BillPayment />} />{" "}
         </Route>{" "}
       </Routes>{" "}
       <Footer />{" "}
