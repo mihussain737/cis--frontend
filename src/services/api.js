@@ -66,3 +66,22 @@ billingApi.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+export const paymentApi=axios.create({
+    baseURL:`${import.meta.env.VITE_BACKEND_PAYMENT_URL}`,
+    headers:{
+        "Content-Type":"application/json"
+    }
+})
+paymentApi.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
